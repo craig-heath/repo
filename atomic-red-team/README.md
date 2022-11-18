@@ -53,3 +53,28 @@ Invoke-AtomicTest T1003 -Interactive
 //All tests at once (not recommended)
 Invoke-AtomicTest All
 ```
+
+### Cleanup After Tests
+```
+Invoke-AtomicTest T1089 -TestNames "Uninstall Sysmon" -Cleanup
+Invoke-AtomicTest T1089 -Cleanup
+```
+
+### Script that checks/installs pre-reqs and executes test for ALL
+```
+$techniques = gci C:\AtomicRedTeam\atomics\* -Recurse -Include T*.yaml | Get-AtomicTechnique
+
+foreach ($technique in $techniques) {
+    foreach ($atomic in $technique.atomic_tests) {
+        if ($atomic.supported_platforms.contains("windows") -and ($atomic.executor -ne "manual")) {
+            # Get Prereqs for test
+            Invoke-AtomicTest $technique.attack_technique -TestGuids $atomic.auto_generated_guid -GetPrereqs
+            # Invoke
+            Invoke-AtomicTest $technique.attack_technique -TestGuids $atomic.auto_generated_guid
+            # Sleep then cleanup
+            Start-Sleep 3
+            Invoke-AtomicTest  $technique.attack_technique -TestGuids $atomic.auto_generated_guid -Cleanup
+        }
+    }
+}
+```
