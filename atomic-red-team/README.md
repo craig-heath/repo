@@ -1,5 +1,8 @@
 # **Red Canary Atomic Testing Guide**
 These are my shorthand notes for getting this setup, full credit and more details can be found at: https://github.com/redcanaryco/atomic-red-team
+Note to self:
+- Ensure Detect only mode is configured
+- Set-ExecutionPolicy Unrestricted
 
 ### Install execution framework and atomics
 ```
